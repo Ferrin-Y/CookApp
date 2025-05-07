@@ -5,23 +5,21 @@
 
 <hibernate-configuration>
     <session-factory>
-        <!-- JDBC connection settings -->
+
+        <!-- Database connection settings -->
         <property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
         <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/cookapp_db</property>
-        <property name="hibernate.connection.username">root</property>
-        <property name="hibernate.connection.password">your_password</property>
+        <property name="hibernate.connection.username">CookUser</property>
+        <property name="hibernate.connection.password">cooking4life</property>
 
-        <!-- Dialect -->
+        <!-- SQL dialect -->
         <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
 
-        <!-- Show SQL in console -->
+        <!-- Logging -->
         <property name="hibernate.show_sql">true</property>
         <property name="hibernate.format_sql">true</property>
 
-        <!-- Automatically update schema -->
         <property name="hibernate.hbm2ddl.auto">update</property>
 
-        <!-- Entities -->
-        <mapping class="com.ferrin.cookapp.User"/>
     </session-factory>
 </hibernate-configuration>
