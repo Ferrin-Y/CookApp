@@ -1,33 +1,22 @@
 package com.ferrin.cookapp;
 
+import com.ferrin.cookapp.dao.RecipeDAO;
 import com.ferrin.cookapp.model.Recipe;
-import com.ferrin.cookapp.util.HibernateUtil;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
+
+import java.util.List;
 
 public class RecipeTest {
     public static void main(String[] args) {
-        // Open a session
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        RecipeDAO recipeDAO = new RecipeDAO();
 
-        // Start a transaction
-        Transaction transaction = session.beginTransaction();
+        // Insert a new recipe
+        Recipe recipe = new Recipe("Mac & Cheese", "Macaroni, Cheese, Milk", "1. Boil pasta\n2. Add cheese and milk\n3. Stir until melted");
+        recipeDAO.saveRecipe(recipe);
 
-        // Create a Recipe object
-        Recipe recipe = new Recipe();
-        recipe.setName("Tomato Pasta");
-        recipe.setIngredients("Tomatoes, Pasta, Olive Oil, Garlic");
-        recipe.setInstructions("1. Boil pasta. 2. Cook tomatoes. 3. Mix together.");
-
-        // Save the recipe
-        session.persist(recipe);
-
-        // Commit the transaction
-        transaction.commit();
-
-        // Close the session
-        session.close();
-
-        System.out.println("Recipe saved successfully!");
+        // Retrieve all recipes
+        List<Recipe> recipes = recipeDAO.getAllRecipes();
+        for (Recipe r : recipes) {
+            System.out.println(r);
+        }
     }
 }

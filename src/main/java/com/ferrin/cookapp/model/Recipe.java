@@ -57,4 +57,15 @@ public class Recipe {
     public void setInstructions(String instructions) {
         this.instructions = instructions;
     }
+    @Override
+    public String toString() {
+        return "Recipe{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", ingredients='" + ingredients + '\'' +
+                ", instructions='" + instructions + '\'' +
+                '}';
+    }
+
+
 }
