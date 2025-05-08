@@ -12,7 +12,8 @@ public class HibernateUtil {
     static {
         try {
             Configuration configuration = new Configuration();
-            configuration.configure(); // looks for hibernate.cfg.xml in classpath
+            configuration.configure().addAnnotatedClass(com.ferrin.cookapp.model.Recipe.class);
+            // looks for hibernate.cfg.xml in classpath
 
             ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
                     .applySettings(configuration.getProperties()).build();
