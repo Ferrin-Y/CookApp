@@ -10,7 +10,16 @@ public class RecipeTest {
         RecipeDAO recipeDAO = new RecipeDAO();
 
         // Insert a new recipe
-        Recipe recipe = new Recipe("Mac & Cheese", "Macaroni, Cheese, Milk", "1. Boil pasta\n2. Add cheese and milk\n3. Stir until melted");
+        Recipe recipe = new Recipe(
+                "Mac & Cheese",
+                "Macaroni, Cheese, Milk",
+                "1. Boil pasta\n2. Add cheese and milk\n3. Stir until melted",
+                20,
+                "American",
+                true,
+                false,
+                false
+        );
         recipeDAO.saveRecipe(recipe);
 
         // Retrieve all recipes

@@ -3,7 +3,7 @@ package com.ferrin.cookapp;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.Parent;
 import javafx.stage.Stage;
 
 public class Main extends Application {
@@ -12,7 +12,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
         // Load the FXML file and associate it with the controller
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/RecipeListView.fxml"));
-        AnchorPane root = loader.load();
+        Parent root = loader.load();
 
         // Set the Scene with the loaded FXML
         Scene scene = new Scene(root);

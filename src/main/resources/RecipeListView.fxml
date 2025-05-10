@@ -1,7 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?import javafx.scene.control.ListView?>
-<?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ferrin.cookapp.ui.RecipeListView">
-    <ListView fx:id="recipeListView" layoutX="14.0" layoutY="14.0" prefWidth="600.0" prefHeight="400.0" />
-</AnchorPane>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.geometry.Pos?>
+
+<VBox spacing="10" alignment="TOP_LEFT"
+      xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.ferrin.cookapp.ui.RecipeListView"
+      prefWidth="800" prefHeight="600">
+
+    <!-- Setting padding properly -->
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20" />
+    </padding>
+
+    <!-- Search Controls -->
+    <HBox spacing="10" alignment="CENTER_LEFT">
+        <Label text="Ingredients:" />
+        <TextField fx:id="ingredientInput" promptText="e.g. Tomato, Cheese, Pasta" />
+
+        <Label text="Cuisine:" />
+        <ComboBox fx:id="cuisineComboBox" promptText="Any" />
+
+        <Label text="Max Time (min):" />
+        <Spinner fx:id="cookTimeSpinner" editable="true" prefWidth="80" />
+
+        <Button text="Search" onAction="#onSearch"/>
+    </HBox>
+
+    <!-- Dietary Preferences -->
+    <HBox spacing="10">
+        <CheckBox fx:id="veganCheckBox" text="Vegan"/>
+        <CheckBox fx:id="vegetarianCheckBox" text="Vegetarian"/>
+        <CheckBox fx:id="glutenFreeCheckBox" text="Gluten-Free"/>
+    </HBox>
+
+    <!-- Recipe List -->
+    <ListView fx:id="recipeListView" prefHeight="400.0" VBox.vgrow="ALWAYS"/>
+</VBox>
