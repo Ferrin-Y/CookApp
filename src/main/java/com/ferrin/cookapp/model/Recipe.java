@@ -1,8 +1,6 @@
 package com.ferrin.cookapp.model;
 
 import jakarta.persistence.*;
-
-import java.util.Arrays;
 import java.util.List;
 
 @Entity
@@ -16,9 +14,6 @@ public class Recipe {
     @Column(nullable = false)
     private String name;
 
-    @Column(length = 1000, nullable = false)
-    private String ingredients;  // comma-separated values
-
     @Column(length = 2000)
     private String instructions;
 
@@ -30,15 +25,16 @@ public class Recipe {
     private boolean vegan;
     private boolean glutenFree;
 
+    @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<Quantity> quantities;
+
     public Recipe() {
         // Required no-arg constructor for Hibernate
     }
 
-    public Recipe(String name, String ingredients, String instructions,
-                  int cookingTime, String cuisine,
+    public Recipe(String name, String instructions, int cookingTime, String cuisine,
                   boolean vegetarian, boolean vegan, boolean glutenFree) {
         this.name = name;
-        this.ingredients = ingredients;
         this.instructions = instructions;
         this.cookingTime = cookingTime;
         this.cuisine = cuisine;
@@ -48,10 +44,8 @@ public class Recipe {
     }
 
     // Simplified constructor for dummy data
-    public Recipe(String name, String ingredients, String instructions,
-                  int cookingTime, String cuisine, String dietaryTag) {
+    public Recipe(String name, String instructions, int cookingTime, String cuisine, String dietaryTag) {
         this.name = name;
-        this.ingredients = ingredients;
         this.instructions = instructions;
         this.cookingTime = cookingTime;
         this.cuisine = cuisine;
@@ -60,7 +54,7 @@ public class Recipe {
         this.glutenFree = dietaryTag.equalsIgnoreCase("Gluten-Free");
     }
 
-    // Required Getters and Setters
+    // Getters and Setters
     public Long getId() {
         return id;
     }
@@ -71,14 +65,6 @@ public class Recipe {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getIngredients() {
-        return ingredients;
-    }
-
-    public void setIngredients(String ingredients) {
-        this.ingredients = ingredients;
     }
 
     public String getInstructions() {
@@ -129,8 +115,17 @@ public class Recipe {
         this.glutenFree = glutenFree;
     }
 
-    public int getCookTime() {
-        return cookingTime; // required for controller
+    public List<Quantity> getQuantities() {
+        return quantities;
+    }
+
+    public void setQuantities(List<Quantity> quantities) {
+        this.quantities = quantities;
+        if (quantities != null) {
+            for (Quantity q : quantities) {
+                q.setRecipe(this); // maintain bidirectional relationship
+            }
+        }
     }
 
     public String getDietaryTag() {
@@ -138,13 +133,6 @@ public class Recipe {
         if (vegetarian) return "Vegetarian";
         if (glutenFree) return "Gluten-Free";
         return "None";
-    }
-
-    public List<String> getIngredientList() {
-        return Arrays.stream(ingredients.split(","))
-                .map(String::trim)
-                .filter(s -> !s.isEmpty())
-                .toList();
     }
 
     @Override

@@ -88,7 +88,10 @@ public class RecipeListView implements Initializable {
         List<Recipe> filtered = dummyRecipes.stream()
                 .filter(recipe -> inputIngredients.isEmpty() ||
                         inputIngredients.stream().allMatch(i ->
-                                recipe.getIngredients().toLowerCase().contains(i)))
+                                recipe.getQuantities().stream()
+                                        .map(q -> q.getIngredient().getName().toLowerCase())
+                                        .anyMatch(name -> name.contains(i))
+                        ))
                 .filter(recipe -> selectedCuisine == null || selectedCuisine.equals("Any") ||
                         recipe.getCuisine().equalsIgnoreCase(selectedCuisine))
                 .filter(recipe -> recipe.getCookTime() <= maxCookTime)

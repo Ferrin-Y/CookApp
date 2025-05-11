@@ -15,11 +15,17 @@ public class Quantity {
 
     private String amount;
 
+    @Column(name = "unit")
+    private String unit;
+
+
     @ManyToOne
     @JoinColumn(name = "recipe_id")
     private Recipe recipe;
 
     public Quantity() {}
+
+
 
     public Quantity(Ingredient ingredient, String amount, Recipe recipe) {
         this.ingredient = ingredient;
@@ -45,6 +51,14 @@ public class Quantity {
 
     public void setAmount(String amount) {
         this.amount = amount;
+    }
+
+    public String getUnit() {
+        return unit;
+    }
+
+    public void setUnit(String unit) {
+        this.unit = unit;
     }
 
     public Recipe getRecipe() {

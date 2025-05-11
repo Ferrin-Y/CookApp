@@ -1,19 +1,19 @@
 package com.ferrin.cookapp.dao;
 
-import com.ferrin.cookapp.model.Recipe;
+import com.ferrin.cookapp.model.Quantity;
 import com.ferrin.cookapp.util.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import java.util.List;
 
-public class RecipeDAO {
+public class QuantityDAO {
 
-    public void saveRecipe(Recipe recipe) {
+    public void saveQuantity(Quantity quantity) {
         Transaction transaction = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
-            session.persist(recipe);
+            session.persist(quantity);
             transaction.commit();
         } catch (Exception e) {
             if (transaction != null) transaction.rollback();
@@ -21,12 +21,11 @@ public class RecipeDAO {
         }
     }
 
-    public List<Recipe> getAllRecipes() {
+    public List<Quantity> getQuantitiesForRecipe(Long recipeId) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            return session.createQuery(
-                    "SELECT DISTINCT r FROM Recipe r LEFT JOIN FETCH r.quantities q LEFT JOIN FETCH q.ingredient",
-                    Recipe.class
-            ).list();
+            return session.createQuery("FROM Quantity WHERE recipe.id = :recipeId", Quantity.class)
+                    .setParameter("recipeId", recipeId)
+                    .list();
         } catch (Exception e) {
             e.printStackTrace();
             return null;
