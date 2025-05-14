@@ -2,26 +2,30 @@ package com.ferrin.cookapp.ui;
 
 import com.ferrin.cookapp.model.Quantity;
 import com.ferrin.cookapp.model.Recipe;
+import com.ferrin.cookapp.service.QuantityService;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
+import java.util.List;
+
 public class RecipeListItemController {
 
-    @FXML
-    private Label nameLabel;
+    @FXML private Label nameLabel;
+    @FXML private Label ingredientsLabel;
+    @FXML private Label instructionsLabel;
 
-    @FXML
-    private Label ingredientsLabel;
-
-    @FXML
-    private Label instructionsLabel;
+    private final QuantityService quantityService = new QuantityService();
 
     public void setRecipe(Recipe recipe) {
         nameLabel.setText(recipe.getName());
+        instructionsLabel.setText("Instructions: " + recipe.getInstructions());
 
-        // Build ingredients string from quantities
+        // Fetch quantities from DB
+        List<Quantity> quantities = quantityService.getQuantitiesForRecipe(recipe.getId());
+
+        // Build ingredients display
         StringBuilder ingredientsText = new StringBuilder("Ingredients: ");
-        for (Quantity q : recipe.getQuantities()) {
+        for (Quantity q : quantities) {
             ingredientsText.append(q.getAmount())
                     .append(" ")
                     .append(q.getUnit())
@@ -30,12 +34,10 @@ public class RecipeListItemController {
                     .append(", ");
         }
 
-        if (!recipe.getQuantities().isEmpty()) {
-            // Remove trailing comma and space
-            ingredientsText.setLength(ingredientsText.length() - 2);
+        if (!quantities.isEmpty()) {
+            ingredientsText.setLength(ingredientsText.length() - 2); // Remove trailing comma
         }
 
         ingredientsLabel.setText(ingredientsText.toString());
-        instructionsLabel.setText("Instructions: " + recipe.getInstructions());
     }
 }

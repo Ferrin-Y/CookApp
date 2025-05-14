@@ -1,6 +1,7 @@
 package com.ferrin.cookapp.ui;
 
 import com.ferrin.cookapp.model.Recipe;
+import com.ferrin.cookapp.service.RecipeService;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -25,17 +26,16 @@ public class RecipeListView implements Initializable {
     @FXML private CheckBox glutenFreeCheckBox;
     @FXML private ListView<Recipe> recipeListView;
 
+    private final RecipeService recipeService = new RecipeService();
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        // Set up cuisine options
         cuisineComboBox.getItems().addAll("Any", "Italian", "Asian", "Mediterranean", "Indian", "American");
         cuisineComboBox.getSelectionModel().select("Any");
 
-        // Set up spinner
         SpinnerValueFactory<Integer> valueFactory = new IntegerSpinnerValueFactory(0, 180, 60, 5);
         cookTimeSpinner.setValueFactory(valueFactory);
 
-        // Set up list view to use FXML-based custom cell
         recipeListView.setCellFactory(listView -> new ListCell<>() {
             @Override
             protected void updateItem(Recipe recipe, boolean empty) {
@@ -48,7 +48,7 @@ public class RecipeListView implements Initializable {
                         FXMLLoader loader = new FXMLLoader(getClass().getResource("/RecipeListItem.fxml"));
                         Parent root = loader.load();
                         RecipeListItemController controller = loader.getController();
-                        controller.setRecipe(recipe);
+                        controller.setRecipe(recipe); // Let item controller fetch quantities
                         setGraphic(root);
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -58,8 +58,7 @@ public class RecipeListView implements Initializable {
             }
         });
 
-        // Initialize with all recipes
-        onSearch();
+        onSearch(); // Load all recipes initially
     }
 
     @FXML
@@ -76,35 +75,15 @@ public class RecipeListView implements Initializable {
         boolean vegetarian = vegetarianCheckBox.isSelected();
         boolean glutenFree = glutenFreeCheckBox.isSelected();
 
-        // Dummy recipe data
-        List<Recipe> dummyRecipes = List.of(
-                new Recipe("Veggie Pasta", "Pasta, Tomato, Zucchini", "Boil pasta...", 25, "Italian", "Vegetarian"),
-                new Recipe("Chickpea Salad", "Chickpeas, Cucumber, Lemon", "Mix together...", 15, "Mediterranean", "Vegan"),
-                new Recipe("Tofu Stir Fry", "Tofu, Chili, Bell Pepper", "Fry tofu...", 30, "Asian", "Vegan"),
-                new Recipe("Mac & Cheese", "Macaroni, Cheese, Milk", "Boil, mix cheese...", 20, "American", "Vegetarian")
+        List<Recipe> results = recipeService.searchRecipes(
+                inputIngredients,
+                selectedCuisine,
+                maxCookTime,
+                vegan,
+                vegetarian,
+                glutenFree
         );
 
-        // Apply filters
-        List<Recipe> filtered = dummyRecipes.stream()
-                .filter(recipe -> inputIngredients.isEmpty() ||
-                        inputIngredients.stream().allMatch(i ->
-                                recipe.getQuantities().stream()
-                                        .map(q -> q.getIngredient().getName().toLowerCase())
-                                        .anyMatch(name -> name.contains(i))
-                        ))
-                .filter(recipe -> selectedCuisine == null || selectedCuisine.equals("Any") ||
-                        recipe.getCuisine().equalsIgnoreCase(selectedCuisine))
-                .filter(recipe -> recipe.getCookTime() <= maxCookTime)
-                .filter(recipe -> {
-                    String tag = recipe.getDietaryTag().toLowerCase();
-                    // Only apply dietary filters if they are selected
-                    if (vegan && !tag.contains("vegan")) return false;
-                    if (vegetarian && !tag.contains("vegetarian") && !tag.contains("vegan")) return false;
-                    if (glutenFree && !tag.contains("gluten-free")) return false;
-                    return true;
-                })
-                .toList();
-
-        recipeListView.setItems(FXCollections.observableArrayList(filtered));
+        recipeListView.setItems(FXCollections.observableArrayList(results));
     }
 }

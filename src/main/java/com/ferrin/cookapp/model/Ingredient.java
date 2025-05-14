@@ -1,6 +1,6 @@
 package com.ferrin.cookapp.model;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 @Entity
 public class Ingredient {
