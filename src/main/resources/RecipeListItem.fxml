@@ -2,8 +2,8 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox spacing="8" style="-fx-background-color: #fdfdfd; -fx-padding: 12; -fx-background-radius: 10; -fx-border-radius: 10; -fx-border-color: #cccccc;" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ferrin.cookapp.ui.RecipeListItemController">
-    <Label fx:id="nameLabel" style="-fx-font-size: 16px; -fx-font-weight: bold;" />
-    <Label fx:id="ingredientsLabel" wrapText="true" />
-    <Label fx:id="instructionsLabel" wrapText="true" />
+<VBox fx:id="container" styleClass="recipe-item" spacing="8" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.ferrin.cookapp.ui.RecipeListItemController">
+    <Label fx:id="nameLabel" styleClass="recipe-name" />
+    <Label fx:id="ingredientsLabel" styleClass="recipe-ingredients" wrapText="true" />
 </VBox>

@@ -6,6 +6,7 @@ import com.ferrin.cookapp.model.Ingredient;
 import com.ferrin.cookapp.model.Quantity;
 import com.ferrin.cookapp.model.Recipe;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -48,5 +49,22 @@ public class RecipeService {
                     return true;
                 })
                 .collect(Collectors.toList());
+    }
+
+    public List<String> getDistinctCuisines() {
+        // Get all recipes first
+        List<Recipe> allRecipes = recipeDAO.getAllRecipes();
+
+        // Extract distinct cuisines
+        List<String> cuisines = allRecipes.stream()
+                .map(Recipe::getCuisine)
+                .distinct()
+                .filter(cuisine -> cuisine != null && !cuisine.trim().isEmpty())
+                .collect(Collectors.toList());
+
+        // Sort alphabetically
+        Collections.sort(cuisines);
+
+        return cuisines;
     }
 }

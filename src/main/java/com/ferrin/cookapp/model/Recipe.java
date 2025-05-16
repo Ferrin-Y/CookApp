@@ -17,12 +17,15 @@ public class Recipe {
     @Column(length = 2000)
     private String instructions;
 
+    @Column(name = "cooking_time")
     private int cookingTime; // in minutes
 
     private String cuisine;
 
     private boolean vegetarian;
     private boolean vegan;
+
+    @Column(name = "gluten_free")
     private boolean glutenFree;
 
     @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)

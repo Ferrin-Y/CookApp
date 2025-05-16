@@ -1,0 +1,48 @@
+/* List View Styles */
+.list-view {
+    -fx-background-color: #ffffff;
+    -fx-padding: 5px;
+}
+
+.list-cell {
+    -fx-background-color: transparent;
+    -fx-padding: 5px 0;
+}
+
+.list-cell:empty {
+    -fx-padding: 0;
+    -fx-background-color: transparent;
+}
+
+/* Recipe Item Styles */
+.recipe-item {
+    -fx-background-color: #fdfdfd;
+    -fx-padding: 12;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+    -fx-border-color: #cccccc;
+    -fx-border-width: 1;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 5, 0, 0, 1);
+}
+
+.recipe-item:hover {
+    -fx-background-color: #f0f0f0;
+    -fx-cursor: hand;
+}
+
+.recipe-name {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333333;
+}
+
+.recipe-ingredients {
+    -fx-text-fill: #666666;
+    -fx-font-size: 14px;
+}
+
+/* General Styles */
+.root {
+    -fx-font-family: "Arial";
+    -fx-base: #ececec;
+}
