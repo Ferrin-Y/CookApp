@@ -102,9 +102,18 @@ public class RecipeDetailView {
     }
 
     private void updateFavouriteButton() {
+        // Make sure the button exists before trying to update it
+        if (favoriteButton == null) {
+            System.err.println("Warning: favoriteButton is null in updateFavouriteButton()");
+            return;
+        }
+
         if (authService.getCurrentUser() != null) {
             favoriteButton.setVisible(true);
-            favoriteButton.setText(favouriteService.isFavorite(currentRecipe) ? "★ Favorited" : "☆ Favorite");
+
+            // Get favorite status safely
+            boolean isFav = favouriteService.isFavorite(currentRecipe);
+            favoriteButton.setText(isFav ? "★ Favorited" : "☆ Favorite");
         } else {
             favoriteButton.setVisible(false);
         }
@@ -112,6 +121,12 @@ public class RecipeDetailView {
 
     @FXML
     private void onFavoriteButtonClick() {
+        // Add null check for safety
+        if (currentRecipe == null) {
+            System.err.println("Cannot favorite a null recipe");
+            return;
+        }
+
         favouriteService.toggleFavorite(currentRecipe);
         updateFavouriteButton();
     }

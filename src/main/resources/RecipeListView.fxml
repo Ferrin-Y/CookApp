@@ -3,40 +3,52 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.geometry.Insets?>
-<?import javafx.geometry.Pos?>
 
-<VBox spacing="10" alignment="TOP_LEFT"
-      xmlns="http://javafx.com/javafx"
-      xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.ferrin.cookapp.ui.RecipeListView"
-      prefWidth="800" prefHeight="600">
+<BorderPane xmlns="http://javafx.com/javafx/8.0.171"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.ferrin.cookapp.ui.RecipeListView">
 
-    <!-- Setting padding properly -->
-    <padding>
-        <Insets top="20" right="20" bottom="20" left="20" />
-    </padding>
+    <top>
+        <TabPane fx:id="tabPane" tabClosingPolicy="UNAVAILABLE">
+            <tabs>
+                <Tab fx:id="searchTab" text="Search Recipes">
+                    <VBox>
+                        <HBox spacing="10" styleClass="search-controls" alignment="CENTER_LEFT">
+                            <padding>
+                                <Insets top="10" right="10" bottom="10" left="10"/>
+                            </padding>
 
-    <!-- Search Controls -->
-    <HBox spacing="10" alignment="CENTER_LEFT">
-        <Label text="Ingredients:" />
-        <TextField fx:id="ingredientInput" promptText="e.g. Tomato, Cheese, Pasta" />
+                            <Label text="Ingredients:"/>
+                            <TextField fx:id="ingredientInput" promptText="Enter ingredients (comma separated)"
+                                       prefWidth="200"/>
 
-        <Label text="Cuisine:" />
-        <ComboBox fx:id="cuisineComboBox" promptText="Any" />
+                            <Label text="Cuisine:"/>
+                            <ComboBox fx:id="cuisineComboBox" prefWidth="120"/>
 
-        <Label text="Max Time (min):" />
-        <Spinner fx:id="cookTimeSpinner" editable="true" prefWidth="80" />
+                            <Label text="Max cook time (min):"/>
+                            <Spinner fx:id="cookTimeSpinner" prefWidth="80"/>
 
-        <Button text="Search" onAction="#onSearch"/>
-    </HBox>
+                            <CheckBox fx:id="veganCheckBox" text="Vegan"/>
+                            <CheckBox fx:id="vegetarianCheckBox" text="Vegetarian"/>
+                            <CheckBox fx:id="glutenFreeCheckBox" text="Gluten Free"/>
 
-    <!-- Dietary Preferences -->
-    <HBox spacing="10">
-        <CheckBox fx:id="veganCheckBox" text="Vegan"/>
-        <CheckBox fx:id="vegetarianCheckBox" text="Vegetarian"/>
-        <CheckBox fx:id="glutenFreeCheckBox" text="Gluten-Free"/>
-    </HBox>
+                            <Button text="Search" onAction="#onSearch" styleClass="search-button"/>
+                        </HBox>
 
-    <!-- Recipe List -->
-    <ListView fx:id="recipeListView" prefHeight="400.0" VBox.vgrow="ALWAYS"/>
-</VBox>
+                        <ListView fx:id="recipeListView" BorderPane.alignment="CENTER"/>
+                    </VBox>
+                </Tab>
+
+                <Tab fx:id="favoritesTab" text="My Favorites">
+                    <ListView fx:id="favoritesListView" BorderPane.alignment="CENTER"/>
+                </Tab>
+            </tabs>
+        </TabPane>
+    </top>
+
+    <center>
+        <!-- This can be used for additional content if needed -->
+        <StackPane/>
+    </center>
+
+</BorderPane>

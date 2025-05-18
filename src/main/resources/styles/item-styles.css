@@ -46,3 +46,47 @@
     -fx-font-family: "Arial";
     -fx-base: #ececec;
 }
+
+/* TabPane styling */
+.tab-pane {
+    -fx-tab-min-width: 120px;
+    -fx-tab-max-width: 120px;
+}
+
+.tab {
+    -fx-background-insets: 0 1 0 1,0,0;
+    -fx-padding: 5 15 5 15;
+}
+
+.tab:selected {
+    -fx-background-color: #3c7fb1, linear-gradient(to bottom, #ecf4fa 0%, #ced7df 100%);
+}
+
+.tab .tab-label {
+    -fx-alignment: CENTER;
+    -fx-text-fill: #828282;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+}
+
+.tab:selected .tab-label {
+    -fx-alignment: CENTER;
+    -fx-text-fill: #3c7fb1;
+}
+
+/* Search controls styling */
+.search-controls {
+    -fx-background-color: #f5f5f5;
+    -fx-border-color: #ddd;
+    -fx-border-width: 0 0 1 0;
+}
+
+.search-button {
+    -fx-background-color: #4CAF50;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
+.search-button:hover {
+    -fx-background-color: #45a049;
+}

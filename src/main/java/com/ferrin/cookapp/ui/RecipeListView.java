@@ -2,6 +2,7 @@ package com.ferrin.cookapp.ui;
 
 import com.ferrin.cookapp.model.Recipe;
 import com.ferrin.cookapp.service.RecipeService;
+import com.ferrin.cookapp.service.FavouriteService;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -29,14 +30,20 @@ public class RecipeListView implements Initializable {
     @FXML private CheckBox vegetarianCheckBox;
     @FXML private CheckBox glutenFreeCheckBox;
     @FXML private ListView<Recipe> recipeListView;
+    @FXML private TabPane tabPane;
+    @FXML private Tab searchTab;
+    @FXML private Tab favoritesTab;
+    @FXML private ListView<Recipe> favoritesListView;
 
     private final RecipeService recipeService = new RecipeService();
+    private final FavouriteService favouriteService = new FavouriteService();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
-            // Load the main CSS file for the list view
+            // Load the main CSS file for the list views
             recipeListView.getStylesheets().add(getClass().getResource("/styles/item-styles.css").toExternalForm());
+            favoritesListView.getStylesheets().add(getClass().getResource("/styles/item-styles.css").toExternalForm());
         } catch (NullPointerException e) {
             System.err.println("Could not load CSS file: " + e.getMessage());
         }
@@ -62,8 +69,29 @@ public class RecipeListView implements Initializable {
         SpinnerValueFactory<Integer> valueFactory = new IntegerSpinnerValueFactory(0, 180, 60, 5);
         cookTimeSpinner.setValueFactory(valueFactory);
 
-        // Setup the cell factory
-        recipeListView.setCellFactory(listView -> new ListCell<>() {
+        // Setup the cell factory for both list views
+        setupListViewCellFactory(recipeListView);
+        setupListViewCellFactory(favoritesListView);
+
+        // Add double-click event to both list views
+        setupListViewDoubleClickHandler(recipeListView);
+        setupListViewDoubleClickHandler(favoritesListView);
+
+        // Add tab change listener
+        tabPane.getSelectionModel().selectedItemProperty().addListener((obs, oldTab, newTab) -> {
+            if (newTab == favoritesTab) {
+                loadFavorites();
+            } else if (newTab == searchTab) {
+                onSearch();
+            }
+        });
+
+        // Load initial recipes
+        onSearch();
+    }
+
+    private void setupListViewCellFactory(ListView<Recipe> listView) {
+        listView.setCellFactory(lv -> new ListCell<>() {
             @Override
             protected void updateItem(Recipe recipe, boolean empty) {
                 super.updateItem(recipe, empty);
@@ -84,19 +112,27 @@ public class RecipeListView implements Initializable {
                 }
             }
         });
+    }
 
-        // Add double-click event to open recipe detail view
-        recipeListView.setOnMouseClicked(event -> {
+    private void setupListViewDoubleClickHandler(ListView<Recipe> listView) {
+        listView.setOnMouseClicked(event -> {
             if (event.getClickCount() == 2) {
-                Recipe selectedRecipe = recipeListView.getSelectionModel().getSelectedItem();
+                Recipe selectedRecipe = listView.getSelectionModel().getSelectedItem();
                 if (selectedRecipe != null) {
                     openRecipeDetailView(selectedRecipe);
                 }
             }
         });
+    }
 
-        // Load initial recipes
-        onSearch();
+    private void loadFavorites() {
+        try {
+            List<Recipe> favorites = favouriteService.getFavorites();
+            favoritesListView.setItems(FXCollections.observableArrayList(favorites));
+        } catch (Exception e) {
+            showErrorAlert("Error loading favorites", "Could not load favorite recipes: " + e.getMessage());
+            favoritesListView.setItems(FXCollections.observableArrayList());
+        }
     }
 
     private void openRecipeDetailView(Recipe recipe) {

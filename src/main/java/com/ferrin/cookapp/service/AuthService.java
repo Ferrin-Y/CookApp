@@ -36,4 +36,10 @@ public class AuthService {
     public static boolean isAdmin() {
         return currentUser != null && currentUser.getRole() == User.Role.ADMIN;
     }
+    public void refreshCurrentUser(User updatedUser) {
+        if (currentUser != null && currentUser.getId().equals(updatedUser.getId())) {
+            currentUser = updatedUser;
+        }
+    }
+
 }
