@@ -1,0 +1,62 @@
+/* src/main/resources/styles/auth.css */
+
+/* Main container */
+.auth-container {
+    -fx-padding: 20;
+}
+
+/* Grid layout */
+.grid-pane {
+    -fx-padding: 10;
+}
+
+/* Labels */
+.auth-label {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-padding: 5 10 5 0;
+}
+
+/* Input fields */
+.auth-field {
+    -fx-pref-width: 200px;
+    -fx-padding: 5;
+    -fx-font-size: 14px;
+}
+
+/* Error message */
+.error-label {
+    -fx-text-fill: #d32f2f;
+    -fx-font-weight: bold;
+    -fx-font-size: 13px;
+    -fx-padding: 10 0 0 0;
+    -fx-wrap-text: true;
+    -fx-alignment: center;
+}
+
+/* Success message */
+.success-label {
+    -fx-text-fill: #388e3c;
+    -fx-font-weight: bold;
+    -fx-font-size: 13px;
+    -fx-padding: 10 0 0 0;
+    -fx-wrap-text: true;
+    -fx-alignment: center;
+}
+
+/* Dialog styling */
+.dialog-pane {
+    -fx-background-color: #f8f8f8;
+    -fx-border-color: #e0e0e0;
+    -fx-border-width: 1;
+}
+
+.dialog-pane .button-bar {
+    -fx-padding: 15 20 10 20;
+    -fx-spacing: 10;
+}
+
+.dialog-pane .button {
+    -fx-pref-width: 80px;
+    -fx-padding: 5 10;
+}

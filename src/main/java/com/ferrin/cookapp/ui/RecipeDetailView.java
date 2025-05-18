@@ -2,6 +2,8 @@ package com.ferrin.cookapp.ui;
 
 import com.ferrin.cookapp.model.Quantity;
 import com.ferrin.cookapp.model.Recipe;
+import com.ferrin.cookapp.service.AuthService;
+import com.ferrin.cookapp.service.FavouriteService;
 import com.ferrin.cookapp.service.QuantityService;
 
 import javafx.collections.FXCollections;
@@ -29,8 +31,13 @@ public class RecipeDetailView {
     @FXML private ImageView recipeImageView;
     @FXML private ListView<String> ingredientsListView;
     @FXML private TextArea instructionsTextArea;
+    @FXML private Button favoriteButton;
 
     private final QuantityService quantityService = new QuantityService();
+
+    private final FavouriteService favouriteService = new FavouriteService();
+    private final AuthService authService = new AuthService();
+
     private Recipe currentRecipe;
     private Stage previousStage;
 
@@ -56,6 +63,7 @@ public class RecipeDetailView {
 
         // Load ingredients
         loadIngredients(recipe.getId());
+        updateFavouriteButton();
     }
 
     private void loadIngredients(Long recipeId) {
@@ -91,5 +99,20 @@ public class RecipeDetailView {
         // Close the current window
         Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         currentStage.close();
+    }
+
+    private void updateFavouriteButton() {
+        if (authService.getCurrentUser() != null) {
+            favoriteButton.setVisible(true);
+            favoriteButton.setText(favouriteService.isFavorite(currentRecipe) ? "★ Favorited" : "☆ Favorite");
+        } else {
+            favoriteButton.setVisible(false);
+        }
+    }
+
+    @FXML
+    private void onFavoriteButtonClick() {
+        favouriteService.toggleFavorite(currentRecipe);
+        updateFavouriteButton();
     }
 }

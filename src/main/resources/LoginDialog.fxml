@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<DialogPane xmlns="http://javafx.com/javafx/11.0.1"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.ferrin.cookapp.ui.LoginDialog"
+            stylesheets="@/styles/auth.css"
+            prefWidth="350">
+
+    <content>
+        <VBox spacing="15" alignment="CENTER" styleClass="auth-container">
+            <GridPane hgap="10" vgap="15">
+                <!-- Column constraints -->
+                <columnConstraints>
+                    <ColumnConstraints halignment="RIGHT" hgrow="NEVER"/>
+                    <ColumnConstraints hgrow="ALWAYS"/>
+                </columnConstraints>
+
+                <!-- Row 0: Username -->
+                <Label text="Username:" styleClass="auth-label"
+                       GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                <TextField fx:id="usernameField" styleClass="auth-field"
+                           GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+                <!-- Row 1: Password -->
+                <Label text="Password:" styleClass="auth-label"
+                       GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                <PasswordField fx:id="passwordField" styleClass="auth-field"
+                               GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+            </GridPane>
+
+            <!-- Error message -->
+            <Label fx:id="errorLabel" styleClass="error-label"
+                   maxWidth="Infinity" textAlignment="CENTER"/>
+        </VBox>
+    </content>
+
+    <!-- These button types must match those in LoginDialog.java -->
+    <buttonTypes>
+        <ButtonType fx:constant="OK"/>
+        <ButtonType text="Register" buttonData="OTHER"/>
+        <ButtonType fx:constant="CANCEL"/>
+    </buttonTypes>
+</DialogPane>

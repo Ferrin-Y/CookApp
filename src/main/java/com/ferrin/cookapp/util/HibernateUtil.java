@@ -4,6 +4,8 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.service.ServiceRegistry;
+import io.github.cdimascio.dotenv.Dotenv;
+
 
 public class HibernateUtil {
 
@@ -11,10 +13,15 @@ public class HibernateUtil {
 
     static {
         try {
-            Configuration configuration = new Configuration();
+            Dotenv dotenv = Dotenv.configure().load();
+
+            Configuration configuration = new Configuration().configure() // Loads hibernate.cfg.xml
+                    .setProperty("hibernate.connection.username", dotenv.get("DB_USER"))
+                    .setProperty("hibernate.connection.password", dotenv.get("DB_PASS"));;
             configuration.configure().addAnnotatedClass(com.ferrin.cookapp.model.Recipe.class);
             configuration.configure().addAnnotatedClass(com.ferrin.cookapp.model.Ingredient.class);
             configuration.configure().addAnnotatedClass(com.ferrin.cookapp.model.Quantity.class);
+            configuration.configure().addAnnotatedClass(com.ferrin.cookapp.model.User.class);
             // looks for hibernate.cfg.xml in classpath
 
             ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()

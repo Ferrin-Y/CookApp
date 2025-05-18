@@ -27,6 +27,8 @@
                 <Label fx:id="timeLabel" styleClass="time-label" />
                 <Label fx:id="cuisineLabel" styleClass="cuisine-label" />
                 <Label fx:id="dietaryTagLabel" styleClass="dietary-tag" />
+                <Button fx:id="favoriteButton" text="☆ Favorite" onAction="#onFavoriteButtonClick"
+                        styleClass="favorite-button" />
             </HBox>
         </HBox>
     </top>
