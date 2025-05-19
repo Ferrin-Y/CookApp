@@ -2,34 +2,36 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.text.Text?>
 
 <DialogPane xmlns="http://javafx.com/javafx/11.0.1"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.ferrin.cookapp.ui.LoginDialog"
-            stylesheets="@/styles/auth.css"
-            prefWidth="350">
+            stylesheets="styles/auth.css"
+            prefWidth="400"
+            styleClass="login-dialog">
+
+    <header>
+        <VBox alignment="CENTER" styleClass="auth-header">
+            <Text text="Welcome Back" styleClass="auth-title"/>
+            <Text text="Log in to your account" styleClass="auth-subtitle"/>
+        </VBox>
+    </header>
 
     <content>
-        <VBox spacing="15" alignment="CENTER" styleClass="auth-container">
-            <GridPane hgap="10" vgap="15">
-                <!-- Column constraints -->
-                <columnConstraints>
-                    <ColumnConstraints halignment="RIGHT" hgrow="NEVER"/>
-                    <ColumnConstraints hgrow="ALWAYS"/>
-                </columnConstraints>
-
-                <!-- Row 0: Username -->
-                <Label text="Username:" styleClass="auth-label"
-                       GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+        <VBox spacing="20" alignment="CENTER" styleClass="auth-container">
+            <VBox spacing="5">
+                <Label text="Username" styleClass="field-label"/>
                 <TextField fx:id="usernameField" styleClass="auth-field"
-                           GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+                           promptText="Enter your username"/>
+            </VBox>
 
-                <!-- Row 1: Password -->
-                <Label text="Password:" styleClass="auth-label"
-                       GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+            <VBox spacing="5">
+                <Label text="Password" styleClass="field-label"/>
                 <PasswordField fx:id="passwordField" styleClass="auth-field"
-                               GridPane.rowIndex="1" GridPane.columnIndex="1"/>
-            </GridPane>
+                               promptText="Enter your password"/>
+            </VBox>
 
             <!-- Error message -->
             <Label fx:id="errorLabel" styleClass="error-label"
@@ -37,7 +39,6 @@
         </VBox>
     </content>
 
-    <!-- These button types must match those in LoginDialog.java -->
     <buttonTypes>
         <ButtonType fx:constant="OK"/>
         <ButtonType text="Register" buttonData="OTHER"/>

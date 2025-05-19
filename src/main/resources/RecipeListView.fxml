@@ -6,49 +6,109 @@
 
 <BorderPane xmlns="http://javafx.com/javafx/8.0.171"
             xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.ferrin.cookapp.ui.RecipeListView">
+            fx:controller="com.ferrin.cookapp.ui.RecipeListView"
+            styleClass="recipe-list-container"
+            stylesheets="styles/item-styles.css">
 
     <top>
-        <TabPane fx:id="tabPane" tabClosingPolicy="UNAVAILABLE">
-            <tabs>
-                <Tab fx:id="searchTab" text="Search Recipes">
-                    <VBox>
-                        <HBox spacing="10" styleClass="search-controls" alignment="CENTER_LEFT">
+        <VBox spacing="0">
+            <!-- App Header -->
+            <HBox alignment="CENTER_LEFT" styleClass="app-header">
+                <padding>
+                    <Insets top="15" right="20" bottom="15" left="20"/>
+                </padding>
+                <Label text="CookApp" styleClass="app-title"/>
+            </HBox>
+
+            <!-- Tabs -->
+            <TabPane fx:id="tabPane" tabClosingPolicy="UNAVAILABLE" styleClass="recipe-tabs">
+                <tabs>
+                    <Tab fx:id="searchTab" text="Search Recipes" styleClass="recipe-tab">
+                        <VBox styleClass="tab-content">
+                            <!-- Search area with gradient background -->
+                            <VBox styleClass="search-panel">
+                                <padding>
+                                    <Insets top="20" right="25" bottom="20" left="25"/>
+                                </padding>
+
+                                <Label text="Find Your Perfect Recipe" styleClass="search-title"/>
+
+                                <GridPane hgap="15" vgap="15" styleClass="search-grid">
+                                    <padding>
+                                        <Insets top="15" right="0" bottom="5" left="0"/>
+                                    </padding>
+
+                                    <columnConstraints>
+                                        <ColumnConstraints hgrow="NEVER" minWidth="120"/>
+                                        <ColumnConstraints hgrow="ALWAYS" minWidth="150"/>
+                                        <ColumnConstraints hgrow="NEVER" minWidth="120"/>
+                                        <ColumnConstraints hgrow="ALWAYS" minWidth="150"/>
+                                    </columnConstraints>
+
+                                    <!-- Row 0 -->
+                                    <Label text="Ingredients:" styleClass="field-label"
+                                           GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+                                    <TextField fx:id="ingredientInput" promptText="Enter ingredients (comma separated)"
+                                               styleClass="text-field" GridPane.columnIndex="1" GridPane.rowIndex="0"
+                                               GridPane.columnSpan="3"/>
+
+                                    <!-- Row 1 -->
+                                    <Label text="Cuisine:" styleClass="field-label"
+                                           GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+                                    <ComboBox fx:id="cuisineComboBox" styleClass="combo-box"
+                                              GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+
+                                    <Label text="Max cook time:" styleClass="field-label"
+                                           GridPane.columnIndex="2" GridPane.rowIndex="1"/>
+                                    <Spinner fx:id="cookTimeSpinner" styleClass="spinner"
+                                             GridPane.columnIndex="3" GridPane.rowIndex="1"/>
+
+                                    <!-- Row 2 - Dietary Restrictions -->
+                                    <Label text="Dietary Options:" styleClass="field-label"
+                                           GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+
+                                    <HBox spacing="15" alignment="CENTER_LEFT"
+                                          GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.columnSpan="3">
+                                        <CheckBox fx:id="veganCheckBox" text="Vegan" styleClass="check-box"/>
+                                        <CheckBox fx:id="vegetarianCheckBox" text="Vegetarian" styleClass="check-box"/>
+                                        <CheckBox fx:id="glutenFreeCheckBox" text="Gluten Free" styleClass="check-box"/>
+                                    </HBox>
+                                </GridPane>
+
+                                <HBox alignment="CENTER_RIGHT">
+                                    <padding>
+                                        <Insets top="15" right="0" bottom="0" left="0"/>
+                                    </padding>
+                                    <Button text="Search Recipes" onAction="#onSearch" styleClass="search-button"/>
+                                </HBox>
+                            </VBox>
+
+                            <!-- Recipe Results List -->
+                            <VBox VBox.vgrow="ALWAYS" styleClass="results-container">
+                                <padding>
+                                    <Insets top="5" right="15" bottom="15" left="15"/>
+                                </padding>
+                                <Label text="Recipe Results" styleClass="results-title"/>
+                                <ListView fx:id="recipeListView" VBox.vgrow="ALWAYS" styleClass="recipe-list"/>
+                            </VBox>
+                        </VBox>
+                    </Tab>
+
+                    <Tab fx:id="favoritesTab" text="My Favorites" styleClass="recipe-tab">
+                        <VBox styleClass="favorites-container">
                             <padding>
-                                <Insets top="10" right="10" bottom="10" left="10"/>
+                                <Insets top="20" right="15" bottom="15" left="15"/>
                             </padding>
-
-                            <Label text="Ingredients:"/>
-                            <TextField fx:id="ingredientInput" promptText="Enter ingredients (comma separated)"
-                                       prefWidth="200"/>
-
-                            <Label text="Cuisine:"/>
-                            <ComboBox fx:id="cuisineComboBox" prefWidth="120"/>
-
-                            <Label text="Max cook time (min):"/>
-                            <Spinner fx:id="cookTimeSpinner" prefWidth="80"/>
-
-                            <CheckBox fx:id="veganCheckBox" text="Vegan"/>
-                            <CheckBox fx:id="vegetarianCheckBox" text="Vegetarian"/>
-                            <CheckBox fx:id="glutenFreeCheckBox" text="Gluten Free"/>
-
-                            <Button text="Search" onAction="#onSearch" styleClass="search-button"/>
-                        </HBox>
-
-                        <ListView fx:id="recipeListView" BorderPane.alignment="CENTER"/>
-                    </VBox>
-                </Tab>
-
-                <Tab fx:id="favoritesTab" text="My Favorites">
-                    <ListView fx:id="favoritesListView" BorderPane.alignment="CENTER"/>
-                </Tab>
-            </tabs>
-        </TabPane>
+                            <Label text="Your Favorite Recipes" styleClass="favorites-title"/>
+                            <ListView fx:id="favoritesListView" VBox.vgrow="ALWAYS" styleClass="recipe-list"/>
+                        </VBox>
+                    </Tab>
+                </tabs>
+            </TabPane>
+        </VBox>
     </top>
 
     <center>
-        <!-- This can be used for additional content if needed -->
         <StackPane/>
     </center>
-
 </BorderPane>

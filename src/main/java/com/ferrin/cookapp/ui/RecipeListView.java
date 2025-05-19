@@ -2,7 +2,7 @@ package com.ferrin.cookapp.ui;
 
 import com.ferrin.cookapp.model.Recipe;
 import com.ferrin.cookapp.service.RecipeService;
-import com.ferrin.cookapp.service.FavouriteService;
+import com.ferrin.cookapp.service.FavoriteService;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -13,7 +13,6 @@ import javafx.scene.control.*;
 import javafx.scene.control.SpinnerValueFactory.IntegerSpinnerValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 import java.io.IOException;
 import java.net.URL;
@@ -36,18 +35,10 @@ public class RecipeListView implements Initializable {
     @FXML private ListView<Recipe> favoritesListView;
 
     private final RecipeService recipeService = new RecipeService();
-    private final FavouriteService favouriteService = new FavouriteService();
+    private final FavoriteService favouriteService = new FavoriteService();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        try {
-            // Load the main CSS file for the list views
-            recipeListView.getStylesheets().add(getClass().getResource("/styles/item-styles.css").toExternalForm());
-            favoritesListView.getStylesheets().add(getClass().getResource("/styles/item-styles.css").toExternalForm());
-        } catch (NullPointerException e) {
-            System.err.println("Could not load CSS file: " + e.getMessage());
-        }
-
         try {
             // Load cuisines from database
             List<String> cuisines = recipeService.getDistinctCuisines();

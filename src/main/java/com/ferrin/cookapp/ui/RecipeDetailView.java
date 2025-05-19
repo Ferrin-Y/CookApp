@@ -3,7 +3,7 @@ package com.ferrin.cookapp.ui;
 import com.ferrin.cookapp.model.Quantity;
 import com.ferrin.cookapp.model.Recipe;
 import com.ferrin.cookapp.service.AuthService;
-import com.ferrin.cookapp.service.FavouriteService;
+import com.ferrin.cookapp.service.FavoriteService;
 import com.ferrin.cookapp.service.QuantityService;
 
 import javafx.collections.FXCollections;
@@ -15,8 +15,6 @@ import javafx.stage.Stage;
 import javafx.scene.Node;
 import javafx.event.ActionEvent;
 
-import java.io.FileInputStream;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,7 +33,7 @@ public class RecipeDetailView {
 
     private final QuantityService quantityService = new QuantityService();
 
-    private final FavouriteService favouriteService = new FavouriteService();
+    private final FavoriteService favouriteService = new FavoriteService();
     private final AuthService authService = new AuthService();
 
     private Recipe currentRecipe;

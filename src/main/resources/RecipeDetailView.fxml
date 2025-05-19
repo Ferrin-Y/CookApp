@@ -15,7 +15,8 @@
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.ferrin.cookapp.ui.RecipeDetailView"
             prefHeight="800.0" prefWidth="800.0"
-            styleClass="recipe-detail-container">
+            styleClass="recipe-detail-container"
+            stylesheets="styles/styles.css">
 
     <top>
         <HBox spacing="15" alignment="CENTER_LEFT" styleClass="recipe-header">

@@ -10,7 +10,7 @@ import com.ferrin.cookapp.util.HibernateUtil;
 
 import java.util.List;
 
-public class FavouriteService {
+public class FavoriteService {
     private final UserDAO userDAO = new UserDAO();
     private final AuthService authService = new AuthService();
 

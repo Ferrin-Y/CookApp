@@ -1,27 +1,71 @@
 /* src/main/resources/styles/auth.css */
 
-/* Main container */
-.auth-container {
-    -fx-padding: 20;
+/* Base Dialog Styling */
+.login-dialog {
+    -fx-background-color: linear-gradient(to bottom, #ffffff 0%, #f5f9ff 100%);
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 15, 0, 0, 4);
+    -fx-background-radius: 16;
+    -fx-border-radius: 16;
+    -fx-border-color: #e0e8f5;
+    -fx-border-width: 1.5;
 }
 
-/* Grid layout */
-.grid-pane {
-    -fx-padding: 10;
+/* Header Section */
+.auth-header {
+    -fx-background-color: linear-gradient(to right, #4655c9 0%, #5e7bff 100%);
+    -fx-padding: 25 20;
+    -fx-background-radius: 16 16 0 0;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 8, 0, 0, 2);
+}
+
+.auth-title {
+    -fx-font-family: 'Montserrat', 'Segoe UI Semibold', 'Helvetica Neue', sans-serif;
+    -fx-font-size: 26px;
+    -fx-font-weight: bold;
+    -fx-fill: white;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 2, 0, 0, 1);
+}
+
+.auth-subtitle {
+    -fx-font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+    -fx-font-size: 14px;
+    -fx-fill: rgba(255, 255, 255, 0.8);
+    -fx-padding: 5 0 0 0;
+}
+
+/* Main container */
+.auth-container {
+    -fx-padding: 25 30;
+    -fx-background-radius: 0 0 16 16;
 }
 
 /* Labels */
-.auth-label {
+.field-label {
+    -fx-font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
     -fx-font-size: 14px;
     -fx-font-weight: bold;
-    -fx-padding: 5 10 5 0;
+    -fx-text-fill: #4655c9;
+    -fx-padding: 0 0 3 2;
 }
 
 /* Input fields */
 .auth-field {
-    -fx-pref-width: 200px;
-    -fx-padding: 5;
+    -fx-background-color: #f8faff;
+    -fx-background-radius: 12;
+    -fx-border-radius: 12;
+    -fx-border-color: #e0e8f5;
+    -fx-border-width: 1.5;
+    -fx-padding: 12 15;
+    -fx-effect: innershadow(gaussian, rgba(0,0,0,0.05), 2, 0, 0, 0);
     -fx-font-size: 14px;
+    -fx-transition: all 0.2s ease-out;
+}
+
+.auth-field:focused {
+    -fx-border-color: #4655c9;
+    -fx-border-width: 2;
+    -fx-effect: dropshadow(gaussian, rgba(70,85,201,0.25), 5, 0, 0, 0);
+    -fx-background-color: white;
 }
 
 /* Error message */
@@ -32,6 +76,13 @@
     -fx-padding: 10 0 0 0;
     -fx-wrap-text: true;
     -fx-alignment: center;
+    -fx-background-color: rgba(211, 47, 47, 0.08);
+    -fx-background-radius: 8;
+    -fx-padding: 8 12;
+    -fx-border-radius: 8;
+    -fx-border-color: rgba(211, 47, 47, 0.2);
+    -fx-border-width: 1;
+    -fx-opacity: 0.9;
 }
 
 /* Success message */
@@ -42,21 +93,72 @@
     -fx-padding: 10 0 0 0;
     -fx-wrap-text: true;
     -fx-alignment: center;
-}
-
-/* Dialog styling */
-.dialog-pane {
-    -fx-background-color: #f8f8f8;
-    -fx-border-color: #e0e0e0;
+    -fx-background-color: rgba(56, 142, 60, 0.08);
+    -fx-background-radius: 8;
+    -fx-padding: 8 12;
+    -fx-border-radius: 8;
+    -fx-border-color: rgba(56, 142, 60, 0.2);
     -fx-border-width: 1;
+    -fx-opacity: 0.9;
 }
 
-.dialog-pane .button-bar {
-    -fx-padding: 15 20 10 20;
+/* Dialog button styling */
+.login-dialog .button-bar {
+    -fx-padding: 15 20;
     -fx-spacing: 10;
 }
 
-.dialog-pane .button {
-    -fx-pref-width: 80px;
-    -fx-padding: 5 10;
+.login-dialog .button {
+    -fx-background-radius: 30;
+    -fx-padding: 10 20;
+    -fx-cursor: hand;
+    -fx-transition: all 0.3s ease-out;
+    -fx-font-weight: bold;
+    -fx-font-size: 13px;
+    -fx-min-width: 90px;
+}
+
+.login-dialog .button:default {
+    -fx-background-color: linear-gradient(to right, #4655c9 0%, #5e7bff 100%);
+    -fx-text-fill: white;
+    -fx-effect: dropshadow(gaussian, rgba(70,85,201,0.3), 5, 0, 0, 2);
+    -fx-border-color: rgba(255,255,255,0.3);
+    -fx-border-width: 1;
+    -fx-border-radius: 30;
+}
+
+.login-dialog .button:default:hover {
+    -fx-background-color: linear-gradient(to right, #3b4ab0 0%, #5078e6 100%);
+    -fx-effect: dropshadow(gaussian, rgba(70,85,201,0.4), 8, 0, 0, 3);
+    -fx-translate-y: -2;
+    -fx-scale-x: 1.03;
+    -fx-scale-y: 1.03;
+}
+
+.login-dialog .button:cancel {
+    -fx-background-color: white;
+    -fx-text-fill: #7789b5;
+    -fx-border-color: #e0e8f5;
+    -fx-border-width: 1.5;
+    -fx-border-radius: 30;
+}
+
+.login-dialog .button:cancel:hover {
+    -fx-background-color: #f5f9ff;
+    -fx-text-fill: #4655c9;
+    -fx-border-color: #4655c9;
+    -fx-translate-y: -1;
+}
+
+.login-dialog .button:other {
+    -fx-background-color: rgba(70,85,201,0.15);
+    -fx-text-fill: #4655c9;
+    -fx-border-color: rgba(70,85,201,0.2);
+    -fx-border-width: 1;
+    -fx-border-radius: 30;
+}
+
+.login-dialog .button:other:hover {
+    -fx-background-color: rgba(70,85,201,0.25);
+    -fx-translate-y: -1;
 }
