@@ -2,10 +2,10 @@
 
 CookApp is a JavaFX application that helps users discover, manage, and favorite recipes based on ingredients they have, dietary preferences, and cuisine types. The application provides an intuitive interface for searching recipes and maintaining a personal collection of favorite recipes.
 
-![Login Screenshot](Screenshots/Screenshot-1.png)
-![Recipe List Screenshot](Screenshots/Screenshot-2.png)
-![Feature List Screenshot](Screenshots/Screenshot-3.png)
-![Detailed Recipe View Screenshot](Screenshots/Screenshot-4.png)
+![Login Screenshot](Assets/Screenshots/Screenshot-1.png)
+![Recipe List Screenshot](Assets/Screenshots/Screenshot-2.png)
+![Feature List Screenshot](Assets/Screenshots/Screenshot-3.png)
+![Detailed Recipe View Screenshot](Assets/Screenshots/Screenshot-4.png)
 
 
 ## Features
@@ -142,6 +142,8 @@ The application uses a relational database with the following main entities:
 - **Recipe**: Contains recipe details including name, instructions, cooking time
 - **Ingredient**: Represents individual ingredients
 - **Quantity**: Associates ingredients with recipes, including amount and unit
+
+To populate the database with sample data, download [Recipe.sql](Assets/Recipes.sql) and run the script.
 
 ## Development
 
